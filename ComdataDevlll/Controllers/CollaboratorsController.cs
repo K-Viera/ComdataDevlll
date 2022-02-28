@@ -132,11 +132,16 @@ namespace ComdataDevlll.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult ConsultarColaboradorPorIdentificación()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConsultarColaboradorPorIdentificación([Bind(Include = "Identificacion")] ColaboradorViewModel colaboradorViewModel) {
-            return null;
+        public ActionResult ConsultarColaboradorPorIdentificación([Bind(Include = "Identification")] Collaborator Collaborator) {
+            Collaborator newCollaborator = db.Collaborators.Where(c => c.Identification == Collaborator.Identification).FirstOrDefault();
+            return View(newCollaborator);
         }
     }
 }

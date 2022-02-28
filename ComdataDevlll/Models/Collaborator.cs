@@ -50,7 +50,7 @@ namespace ComdataDevlll.Models
         [DisplayName("Identificacion")]
         public string Identification { get; set; }
     }
-    public class ColaboradorViewModel {
+    public class ColaboradorViewModel:ConsultarCollaboradorPOST {
         [DisplayName("Nombres")]
         public string Name { get; set; }
         [DisplayName("Apellidos")]
