@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202202282027028_add-colaborator.designer.cs">
       <DependentUpon>202202282027028_add-colaborator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202282101452_add-Identification.cs" />
+    <Compile Include="Migrations\202202282101452_add-Identification.designer.cs">
+      <DependentUpon>202202282101452_add-Identification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Collaborator.cs" />
@@ -252,6 +256,7 @@
     <Content Include="Views\Collaborators\Details.cshtml" />
     <Content Include="Views\Collaborators\Edit.cshtml" />
     <Content Include="Views\Collaborators\Index.cshtml" />
+    <Content Include="Views\Collaborators\ConsultarColaboradorPorIdentificación.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202282027028_add-colaborator.resx">
       <DependentUpon>202202282027028_add-colaborator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202282101452_add-Identification.resx">
+      <DependentUpon>202202282101452_add-Identification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

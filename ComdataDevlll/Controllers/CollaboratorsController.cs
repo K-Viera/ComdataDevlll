@@ -50,7 +50,7 @@ namespace ComdataDevlll.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
+        public ActionResult Create([Bind(Include = "Id,Identification,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace ComdataDevlll.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
+        public ActionResult Edit([Bind(Include = "Id,Identification,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
         {
             if (ModelState.IsValid)
             {
@@ -131,6 +131,12 @@ namespace ComdataDevlll.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConsultarColaboradorPorIdentificación([Bind(Include = "Identificacion")] ColaboradorViewModel colaboradorViewModel) {
+            return null;
         }
     }
 }

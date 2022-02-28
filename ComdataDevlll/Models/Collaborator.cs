@@ -13,6 +13,9 @@ namespace ComdataDevlll.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [DisplayName("Identificacion")]
+        public string Identification { get; set; }
+        [Required]
         [DisplayName("Nombres")]
         public string Name { get; set; }
         [Required]
@@ -42,5 +45,19 @@ namespace ComdataDevlll.Models
         [ForeignKey("User")]
         public string AplicationUserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+    }
+    public class ConsultarCollaboradorPOST{
+        [DisplayName("Identificacion")]
+        public string Identification { get; set; }
+    }
+    public class ColaboradorViewModel {
+        [DisplayName("Nombres")]
+        public string Name { get; set; }
+        [DisplayName("Apellidos")]
+        public string LastName { get; set; }
+        [DisplayName("Salario")]
+        public string Salary { get; set; }
+        [DisplayName("Área")]
+        public string Area { get; set; }
     }
 }
