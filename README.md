@@ -25,3 +25,5 @@ ya que la aplicacion se penso para que varias empresas o actores pudieran regist
 
 
 Los logs quedan guardados en una carpeta "log" dentro del archivo principal donde se ejecute.
+es necesario que esta carpeta existe o en caso contrario no guardara los logs, de caso de ser
+necesario cree la carpeta "log" en la direccion raiz donde se ejecute el programa.
