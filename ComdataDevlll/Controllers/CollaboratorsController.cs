@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ComdataDevlll.Models;
+using ComdataDevlll.Tools;
 using Microsoft.AspNet.Identity;
 
 namespace ComdataDevlll.Controllers
@@ -52,16 +53,25 @@ namespace ComdataDevlll.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Identification,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
         {
-            if (ModelState.IsValid)
+            try
             {
-                collaborator.AplicationUserId = User.Identity.GetUserId();
-                db.Collaborators.Add(collaborator);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    collaborator.AplicationUserId = User.Identity.GetUserId();
+                    db.Collaborators.Add(collaborator);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                //ViewBag.AplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", collaborator.AplicationUserId);
+                return View(collaborator);
+            }
+            catch (Exception e) 
+            {
+                Elog.save(this, e);
+                return View(collaborator);
             }
 
-            //ViewBag.AplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", collaborator.AplicationUserId);
-            return View(collaborator);
         }
 
         // GET: Collaborators/Edit/5
@@ -87,15 +97,22 @@ namespace ComdataDevlll.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Identification,Name,LastName,Addres,Email,Phone,Salary,Area,entryDate,gender,AplicationUserId")] Collaborator collaborator)
         {
-            if (ModelState.IsValid)
+            try {
+                if (ModelState.IsValid)
+                {
+                    collaborator.AplicationUserId = User.Identity.GetUserId();
+                    db.Entry(collaborator).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                //ViewBag.AplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", collaborator.AplicationUserId);
+                return View(collaborator);
+            } catch (Exception e) 
             {
-                collaborator.AplicationUserId=User.Identity.GetUserId();
-                db.Entry(collaborator).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Elog.save(this, e);
+                return View(collaborator);
             }
-            //ViewBag.AplicationUserId = new SelectList(db.ApplicationUsers, "Id", "Email", collaborator.AplicationUserId);
-            return View(collaborator);
+
         }
 
         // GET: Collaborators/Delete/5
@@ -118,10 +135,16 @@ namespace ComdataDevlll.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Collaborator collaborator = db.Collaborators.Find(id);
-            db.Collaborators.Remove(collaborator);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                Collaborator collaborator = db.Collaborators.Find(id);
+                db.Collaborators.Remove(collaborator);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            } catch(Exception e) {
+                Elog.save(this, e);
+                return RedirectToAction("Index");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
@@ -140,8 +163,20 @@ namespace ComdataDevlll.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ConsultarColaboradorPorIdentificación([Bind(Include = "Identification")] Collaborator Collaborator) {
-            Collaborator newCollaborator = db.Collaborators.Where(c => c.Identification == Collaborator.Identification).FirstOrDefault();
-            return View(newCollaborator);
+            try {
+                Collaborator newCollaborator = db.Collaborators.Where(c => c.Identification == Collaborator.Identification).FirstOrDefault();
+                if (newCollaborator != null) 
+                {
+                    return View(newCollaborator);
+                }
+                return View(Collaborator);
+
+            }
+            catch (Exception e) {
+                Elog.save(this, e);
+                return View(Collaborator);
+            }
+            
         }
     }
 }
